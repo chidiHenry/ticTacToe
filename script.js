@@ -1,5 +1,15 @@
 
- const renderMessage = document.querySelector('#message');
+ //const renderMessage = document.querySelector('#message');
+ const MessageController = (()=>{
+    const renderMessage = (messsage)=>{
+        const messageText = document.querySelector('#message');
+        messageText.innerHTML = messsage;
+    }
+    return{
+        renderMessage,
+    }
+
+ })();
 
 const gameBoard = (()=>{
 let gameboard = ["", "", "", "", "", "", "", "", ""]
@@ -73,11 +83,13 @@ const Game= (()=>{
         
         if(checkWin(gameBoard.getGameBoard(), palyers[currentPlayerIndex].mark)){
             gameOver = true;
-            renderMessage.innerHTML =  `${palyers[currentPlayerIndex].name} won!`;
+           // renderMessage.innerHTML =  `${palyers[currentPlayerIndex].name} won!`;
+           MessageController.renderMessage(`${palyers[currentPlayerIndex].name} won!`);
             
         }else if(checkForDraw(gameBoard.getGameBoard())){
             gameOver = true;
-            renderMessage.innerHTML = `It's a Tie`;
+           // renderMessage.innerHTML = `It's a Tie`;
+           MessageController.renderMessage(`It's a Tie`);
         }
         currentPlayerIndex = currentPlayerIndex === 0? 1 : 0;
         
@@ -126,11 +138,13 @@ const startButton = document.querySelector('#start');
 const restart = document.querySelector('#restart');
 restart.addEventListener('click', function(){
     Game.restart();
-    renderMessage.innerHTML = "";
+    MessageController.renderMessage("");
+    //renderMessage.innerHTML = "";
     
 })
 
 startButton.addEventListener('click', function(){
     Game.start();
+    
    
 })
